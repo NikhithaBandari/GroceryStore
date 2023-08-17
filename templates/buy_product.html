@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Buy Product</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">NickMart</a>
+            <div class="navbar-collapse justify-content-end">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url_for('user_profile')}}">User Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url_for('cart')}}">Cart</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    
+    <div class="container mt-4">
+        <h2>{{ product.name }} - {{ product.category.name }}</h2>
+        <div class="card p-4">
+            <form method="post">
+                {{ form.hidden_tag() }}
+    
+                <div class="mb-3">
+                    {{ form.quantity.label(class="form-label") }}
+                    <div class="input-group">
+                        {{ form.quantity(class="form-control", id="quantityInput") }}
+                        <span class="input-group-text">{{ product.unit }}</span>
+                    </div>
+                </div>
+    
+                <div class="mb-3">
+                    <label class="form-label">Availability</label>
+                    <span class="form-control-static" id="availabilityStatus">
+                        <!-- Initial content -->
+                        In Stock
+                    </span>
+                </div>
+                
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const quantityInput = document.getElementById('quantityInput');
+                        const availabilityStatus = document.getElementById('availabilityStatus');
+                
+                        quantityInput.addEventListener('input', function() {
+                            const quantity = parseFloat(quantityInput.value) || 0;
+                            const isAvailable = quantity === 0 || quantity <= parseFloat('{{ product.available_quantity }}');
+                
+                            if (isAvailable) {
+                                availabilityStatus.textContent = 'In Stock';
+                                availabilityStatus.classList.remove('text-danger');
+                                availabilityStatus.classList.add('text-success');
+                            } else {
+                                availabilityStatus.textContent = 'Out of Stock';
+                                availabilityStatus.classList.remove('text-success');
+                                availabilityStatus.classList.add('text-danger');
+                            }
+                        });
+                    });
+                </script>
+                
+    
+                <div class="mb-3">
+                    <label class="form-label">Price</label>
+                    <p class="form-control-static" id="ratePerUnit" data-rate-per-unit="{{ product.rate_per_unit }}">{{ product.rate_per_unit }}</p>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Total</label>
+                    <input type="text" class="form-control" id="totalPriceField" value="0" readonly>
+                </div>
+                
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const quantityInput = document.getElementById('quantityInput');
+                        const totalPriceField = document.getElementById('totalPriceField');
+                        const ratePerUnit = parseFloat(document.getElementById('ratePerUnit').getAttribute('data-rate-per-unit'));
+                
+                        quantityInput.addEventListener('input', function() {
+                            const quantity = parseFloat(quantityInput.value) || 0;
+                            const total = ratePerUnit * quantity;
+                            totalPriceField.value = total.toFixed(2);  // Display total with 2 decimal places
+                        });
+                    });
+                </script>
+                
+                
+                
+                <button href=" {{url_for('cart')}}"type="submit" class="btn btn-primary mx-auto d-block">Buy</button>
+            </form>
+        </div>
+    </div>
+    
+    
+
+    
+
+
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+  </body>
+</html>
