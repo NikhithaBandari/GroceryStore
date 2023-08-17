@@ -12,8 +12,8 @@ from flask_bcrypt import Bcrypt
 from flask_bcrypt import check_password_hash
 from datetime import datetime
 from flask import jsonify
-from flask_wtf.csrf import CSRFProtect
-from flask_wtf.csrf import generate_csrf
+# from flask_wtf.csrf import CSRFProtect
+# from flask_wtf.csrf import generate_csrf
 
 
 app = Flask(__name__)
@@ -21,7 +21,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///grocery.db"
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 bcrypt = Bcrypt(app)
-csrf = CSRFProtect(app)
+# csrf = CSRFProtect(app)
 app.config['SECRET_KEY'] = 'thisisasecretkey'
 
 login_manager = LoginManager(app)
