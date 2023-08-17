@@ -51,6 +51,7 @@
                                     <a href="{{url_for('buy_product', product_id=product.id)}}"class="btn btn-primary">Buy</a>
                                     
                                     <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="POST" class="mb-3 quantity-input">
+                                        {{ csrf_token() }}
                                         <div class="input-group">
                                             <input type="number" name="quantity" class="form-control" min="1" value="1" required>
                                             <button type="submit" class="btn btn-secondary">
