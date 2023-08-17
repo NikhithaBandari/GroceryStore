@@ -1,5 +1,5 @@
  
-# Grocery Store Web Application
+# NICKMART - Grocery Store Web Application
 
 Welcome to the Grocery Store web application! This application allows users to browse, buy, and manage products in a virtual grocery store. A grocery store app inspired by big basket and blinkit.
 
