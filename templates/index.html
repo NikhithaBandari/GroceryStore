@@ -75,7 +75,7 @@
                                 {% if product.available_quantity == 0 %}
                                     <p class="text-danger">Out of Stock</p>
                                 {% else %}
-                                    <a href="{{url_for('buy_product', product_id=product.id)}}"class="btn btn-primary">Buy</a>
+                                    <a href="{{url_for('buy_product', product_id=product.id)}}"class="btn btn-warning">Buy</a>
                                     
                                     <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="POST" class="mb-3 quantity-input">
                                         <div class="input-group">
